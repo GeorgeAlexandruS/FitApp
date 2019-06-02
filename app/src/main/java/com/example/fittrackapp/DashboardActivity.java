@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,55 +18,33 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public void clickFunction(View view){
+    public int weightStatus;
+    int normalDailyCalories;
+    double xFactor = 24;
+    double leanFactor = 0.925;
+    double activityFactor = 1.65;
+    int deficit;
+    int days = 60;
 
-        int buttonID = view.getId();
-
-        String inputTitle="";
-        if (buttonID == R.id.addFoodButton) {
-            inputTitle = "How many calories have you eaten?";
-        } else if (buttonID == R.id.addFitnessButton) {
-            inputTitle = "How many calories have you lost?";
-        }
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(inputTitle);
-
-// Set up the input
-        final EditText input = new EditText(this);
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setInputType(InputType.TYPE_CLASS_NUMBER);
-        builder.setView(input);
-
-// Set up the buttons
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String m_Text = input.getText().toString();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-
-
-        Toast.makeText(this, "Button has been clicked " , Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -85,6 +64,67 @@ public class DashboardActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Read from the database
+        FirebaseDatabase databaseFit = FirebaseDatabase.getInstance();
+
+        DatabaseReference foodCurrentRef = databaseFit.getReference("Food current");
+        foodCurrentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                TextView foodField = findViewById(R.id.foodCurrent);
+                foodField.setText(value);
+                Log.d("ok", "Current food is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("not ok", "Failed to read Current Food.", error.toException());
+            }
+        });
+
+        DatabaseReference fitnessCurrentRef = databaseFit.getReference("Fitness current");
+        fitnessCurrentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                TextView fitnessField = findViewById(R.id.fitnessCurrent);
+                fitnessField.setText(value);
+                Log.d("ok", "Current food is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("not ok", "Failed to read Current Fitness.", error.toException());
+            }
+        });
+
+
+
+
+        normalDailyCalories = (int) (weightStatus * xFactor * leanFactor * activityFactor);
+
+
+
+
+
+        Button updateDashboardButton;
+        updateDashboardButton = findViewById(R.id.addFoodButton);
+        updateDashboardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivityUpdateDashboard();
+            }
+        });
+
+    }
+
+    protected void openActivityUpdateDashboard() {
+        Intent intent = new Intent(this, UpdateDashboardActivity.class);
+        startActivity(intent);
     }
 
     @Override

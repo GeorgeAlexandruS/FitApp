@@ -5,17 +5,25 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class UpdateGoalsActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_goals);
+
 
         Button confirmGoals;
         confirmGoals = findViewById(R.id.confirmGoals);
@@ -39,15 +47,32 @@ public class UpdateGoalsActivity extends AppCompatActivity {
         String bmi = messageBMI.getText().toString();
         i.putExtra("bmiTarget", bmi);
 
+        EditText messageDays = findViewById(R.id.textTargetDays);
+        String days = messageDays.getText().toString();
+        i.putExtra("daysTarget", days);
+
+
+
+        int statusTargetWeight = Integer.parseInt(weight);
+        int statusTargetDays = Integer.parseInt(days);
+
+
+        
+
+
 
 //write to firebase
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference weightRef = database.getReference("Weight target");
         DatabaseReference bmiRef = database.getReference("BMI target");
+        DatabaseReference daysRef = database.getReference("Days target");
+
 
         weightRef.setValue(weight);
         bmiRef.setValue(bmi);
+        daysRef.setValue(days);
+
 
 
         startActivity(i);

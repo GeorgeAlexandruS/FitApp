@@ -78,6 +78,22 @@ public class GoalsActivity extends AppCompatActivity
             }
         });
 
+        DatabaseReference daysTargetRef = databaseFit.getReference("Days target");
+        daysTargetRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                TextView daysTargetField = findViewById(R.id.target_date);
+                daysTargetField.setText(value);
+                Log.d("ok", "Target days is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("not ok", "Failed to get days.", error.toException());
+            }
+        });
 
 
 

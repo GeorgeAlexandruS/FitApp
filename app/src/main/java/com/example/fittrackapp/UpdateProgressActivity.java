@@ -1,6 +1,5 @@
 package com.example.fittrackapp;
 
-import android.arch.core.util.Function;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ public class UpdateProgressActivity extends AppCompatActivity {
         setContentView(R.layout.activity_update_progress);
 
         Button confirmProgress;
-        confirmProgress = findViewById(R.id.confirmBodyStatus);
+        confirmProgress = findViewById(R.id.confirmDashboard);
         confirmProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,11 +31,11 @@ public class UpdateProgressActivity extends AppCompatActivity {
     protected void returnToActivityProgress() {
         Intent i = new Intent(UpdateProgressActivity.this, ProgressActivity.class);
 
-        EditText messageWeight = findViewById(R.id.textNewWeight);
+        EditText messageWeight = findViewById(R.id.textName);
         String weight = messageWeight.getText().toString();
         i.putExtra("weightUpdate", weight);
 
-        EditText messageBMI = findViewById(R.id.textNewBMI);
+        EditText messageBMI = findViewById(R.id.textFitness);
         String bmi = messageBMI.getText().toString();
         i.putExtra("bmiUpdate", bmi);
 

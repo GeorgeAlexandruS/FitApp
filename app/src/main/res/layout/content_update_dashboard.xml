@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
-    tools:showIn="@layout/app_bar_update_progress">
+    tools:showIn="@layout/app_bar_update_dashboard">
 
     <Button
         android:id="@+id/confirmDashboard"
@@ -34,7 +34,7 @@
             android:layout_centerVertical="true"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Update your BMI"
+            android:hint="Calories lost"
             android:inputType="number"
             android:textAlignment="center" />
 
@@ -45,7 +45,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="13dp"
             android:layout_weight="1"
-            android:text="BMI (%)"
+            android:text="Fitness (cal)"
             android:textAlignment="center" />
     </RelativeLayout>
 
@@ -65,7 +65,7 @@
             android:layout_centerVertical="true"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Update your weight"
+            android:hint="Food intake"
             android:inputType="number"
             android:textAlignment="center" />
 
@@ -76,7 +76,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="13dp"
             android:layout_weight="1"
-            android:text="Weight (kg)"
+            android:text="Food (cal)"
             android:textAlignment="center" />
     </RelativeLayout>
 
