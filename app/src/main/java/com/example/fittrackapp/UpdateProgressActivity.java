@@ -31,27 +31,37 @@ public class UpdateProgressActivity extends AppCompatActivity {
     protected void returnToActivityProgress() {
         Intent i = new Intent(UpdateProgressActivity.this, ProgressActivity.class);
 
-        EditText messageWeight = findViewById(R.id.textName);
-        String weight = messageWeight.getText().toString();
-        i.putExtra("weightUpdate", weight);
+        String weight = null;
+        try {
+            EditText messageWeight = findViewById(R.id.textName);
+            weight = messageWeight.getText().toString();
+            i.putExtra("weightUpdate", weight);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        EditText messageBMI = findViewById(R.id.textFitness);
-        String bmi = messageBMI.getText().toString();
-        i.putExtra("bmiUpdate", bmi);
+        String bmi = null;
+        try {
+            EditText messageBMI = findViewById(R.id.textFitness);
+            bmi = messageBMI.getText().toString();
+            i.putExtra("bmiUpdate", bmi);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         //write to firebase
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        DatabaseReference weightRef = database.getReference("Weight current");
-        DatabaseReference bmiRef = database.getReference("BMI current");
-
-        weightRef.setValue(weight);
-        bmiRef.setValue(bmi);
-
-
-        startActivity(i);
+        try {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference weightRef = database.getReference("Weight current");
+            DatabaseReference bmiRef = database.getReference("BMI current");
+            weightRef.setValue(weight);
+            bmiRef.setValue(bmi);
+            startActivity(i);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

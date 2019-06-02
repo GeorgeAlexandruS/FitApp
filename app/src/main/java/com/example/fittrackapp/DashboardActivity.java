@@ -32,13 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public int weightStatus;
-    int normalDailyCalories;
-    double xFactor = 24;
-    double leanFactor = 0.925;
-    double activityFactor = 1.65;
-    int deficit;
-    int days = 60;
 
 
     @Override
@@ -46,6 +39,7 @@ public class DashboardActivity extends AppCompatActivity
 
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,61 +60,68 @@ public class DashboardActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // Read from the database
+
+
         FirebaseDatabase databaseFit = FirebaseDatabase.getInstance();
 
-        DatabaseReference foodCurrentRef = databaseFit.getReference("Food current");
-        foodCurrentRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                TextView foodField = findViewById(R.id.foodCurrent);
-                foodField.setText(value);
-                Log.d("ok", "Current food is: " + value);
-            }
+        try {
+            DatabaseReference foodCurrentRef = databaseFit.getReference("Food current");
+            foodCurrentRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String value = dataSnapshot.getValue(String.class);
+                    TextView foodField = findViewById(R.id.foodCurrent);
+                    foodField.setText(value);
+                    Log.d("ok", "Current food is: " + value);
+                }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("not ok", "Failed to read Current Food.", error.toException());
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w("not ok", "Failed to read Current Food.", error.toException());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        DatabaseReference fitnessCurrentRef = databaseFit.getReference("Fitness current");
-        fitnessCurrentRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                TextView fitnessField = findViewById(R.id.fitnessCurrent);
-                fitnessField.setText(value);
-                Log.d("ok", "Current food is: " + value);
-            }
+        try {
+            DatabaseReference fitnessCurrentRef = databaseFit.getReference("Fitness current");
+            fitnessCurrentRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String value = dataSnapshot.getValue(String.class);
+                    TextView fitnessField = findViewById(R.id.fitnessCurrent);
+                    fitnessField.setText(value);
+                    Log.d("ok", "Current food is: " + value);
+                }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("not ok", "Failed to read Current Fitness.", error.toException());
-            }
-        });
-
-
-
-
-        normalDailyCalories = (int) (weightStatus * xFactor * leanFactor * activityFactor);
-
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w("not ok", "Failed to read Current Fitness.", error.toException());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
-
-
-        Button updateDashboardButton;
-        updateDashboardButton = findViewById(R.id.addFoodButton);
-        updateDashboardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openActivityUpdateDashboard();
-            }
-        });
+        try {
+            Button updateDashboardButton;
+            updateDashboardButton = findViewById(R.id.addFoodButton);
+            updateDashboardButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openActivityUpdateDashboard();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
+
 
     protected void openActivityUpdateDashboard() {
         Intent intent = new Intent(this, UpdateDashboardActivity.class);
@@ -151,10 +152,6 @@ public class DashboardActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -174,14 +171,12 @@ public class DashboardActivity extends AppCompatActivity
         } else if (id == R.id.nav_bodyprogress) {
             Intent intent = new Intent(getApplicationContext(), ProgressActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_fitness) {
-
-        } else if (id == R.id.nav_food) {
-
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

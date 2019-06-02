@@ -31,22 +31,32 @@ public class UpdateDashboardActivity extends AppCompatActivity {
     protected void returnToActivityDashboard() {
         Intent i = new Intent(UpdateDashboardActivity.this, DashboardActivity.class);
 
-        EditText messageFood = findViewById(R.id.textName);
-        String food = messageFood.getText().toString();
-        i.putExtra("foodUpdate", food);
+        String food = null;
+        String fitness = null;
+        try {
+            EditText messageFood = findViewById(R.id.textName);
+            food = messageFood.getText().toString();
+            i.putExtra("foodUpdate", food);
 
-        EditText messageFitness = findViewById(R.id.textFitness);
-        String fitness = messageFitness.getText().toString();
-        i.putExtra("fitnessUpdate", fitness);
+            EditText messageFitness = findViewById(R.id.textFitness);
+            fitness = messageFitness.getText().toString();
+            i.putExtra("fitnessUpdate", fitness);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //write to firebase
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference foodRef = database.getReference("Food current");
-        DatabaseReference fitnessRef = database.getReference("Fitness current");
-        foodRef.setValue(food);
-        fitnessRef.setValue(fitness);
-        startActivity(i);
+        try {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference foodRef = database.getReference("Food current");
+            DatabaseReference fitnessRef = database.getReference("Fitness current");
+            foodRef.setValue(food);
+            fitnessRef.setValue(fitness);
+            startActivity(i);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -39,40 +39,41 @@ public class UpdateGoalsActivity extends AppCompatActivity {
     protected void returnToActivityGoals() {
         Intent i = new Intent(UpdateGoalsActivity.this, GoalsActivity.class);
 
-        EditText messageWeight = findViewById(R.id.textTargetWeight);
-        String weight = messageWeight.getText().toString();
-        i.putExtra("weightTarget", weight);
+        String weight = null;
+        String bmi = null;
+        String days = null;
+        try {
+            EditText messageWeight = findViewById(R.id.textTargetWeight);
+            weight = messageWeight.getText().toString();
+            i.putExtra("weightTarget", weight);
 
-        EditText messageBMI = findViewById(R.id.textTargetBMI);
-        String bmi = messageBMI.getText().toString();
-        i.putExtra("bmiTarget", bmi);
+            EditText messageBMI = findViewById(R.id.textTargetBMI);
+            bmi = messageBMI.getText().toString();
+            i.putExtra("bmiTarget", bmi);
 
-        EditText messageDays = findViewById(R.id.textTargetDays);
-        String days = messageDays.getText().toString();
-        i.putExtra("daysTarget", days);
-
-
-
-        int statusTargetWeight = Integer.parseInt(weight);
-        int statusTargetDays = Integer.parseInt(days);
-
-
-        
-
+            EditText messageDays = findViewById(R.id.textTargetDays);
+            days = messageDays.getText().toString();
+            i.putExtra("daysTarget", days);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
 //write to firebase
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference weightRef = database.getReference("Weight target");
-        DatabaseReference bmiRef = database.getReference("BMI target");
-        DatabaseReference daysRef = database.getReference("Days target");
+        try {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference weightRef = database.getReference("Weight target");
+            DatabaseReference bmiRef = database.getReference("BMI target");
+            DatabaseReference daysRef = database.getReference("Days target");
 
 
-        weightRef.setValue(weight);
-        bmiRef.setValue(bmi);
-        daysRef.setValue(days);
-
+            weightRef.setValue(weight);
+            bmiRef.setValue(bmi);
+            daysRef.setValue(days);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         startActivity(i);

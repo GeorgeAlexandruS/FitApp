@@ -44,82 +44,101 @@ public class GoalsActivity extends AppCompatActivity
 
         FirebaseDatabase databaseFit = FirebaseDatabase.getInstance();
 
-        DatabaseReference bmiTargetRef = databaseFit.getReference("BMI target");
-        bmiTargetRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                TextView bmiField = findViewById(R.id.target_bmi);
-                bmiField.setText(value);
-                Log.d("ok", "Target BMI is: " + value);
-            }
+        try {
+            DatabaseReference bmiTargetRef = databaseFit.getReference("BMI target");
+            bmiTargetRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String value = dataSnapshot.getValue(String.class);
+                    TextView bmiField = findViewById(R.id.target_bmi);
+                    bmiField.setText(value);
+                    Log.d("ok", "Target BMI is: " + value);
+                }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("not ok", "Failed to read current BMI.", error.toException());
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w("not ok", "Failed to read current BMI.", error.toException());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        DatabaseReference weightTargetRef = databaseFit.getReference("Weight target");
-        weightTargetRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                TextView weightTargetField = findViewById(R.id.target_weight);
-                weightTargetField.setText(value);
-                Log.d("ok", "Target weight is: " + value);
-            }
+        try {
+            DatabaseReference weightTargetRef = databaseFit.getReference("Weight target");
+            weightTargetRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String value = dataSnapshot.getValue(String.class);
+                    TextView weightTargetField = findViewById(R.id.target_weight);
+                    weightTargetField.setText(value);
+                    Log.d("ok", "Target weight is: " + value);
+                }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("not ok", "Failed to target BMIe.", error.toException());
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w("not ok", "Failed to target BMIe.", error.toException());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        DatabaseReference daysTargetRef = databaseFit.getReference("Days target");
-        daysTargetRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                TextView daysTargetField = findViewById(R.id.target_date);
-                daysTargetField.setText(value);
-                Log.d("ok", "Target days is: " + value);
-            }
+        try {
+            DatabaseReference daysTargetRef = databaseFit.getReference("Days target");
+            daysTargetRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String value = dataSnapshot.getValue(String.class);
+                    TextView daysTargetField = findViewById(R.id.target_date);
+                    daysTargetField.setText(value);
+                    Log.d("ok", "Target days is: " + value);
+                }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("not ok", "Failed to get days.", error.toException());
-            }
-        });
-
-
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-
-            String targetWeight = extras.getString("weightTarget");
-            TextView weightField = findViewById(R.id.target_weight);
-            weightField.setText(targetWeight);
-
-            String targetBMI = extras.getString("bmiTarget");
-            TextView bmiField = findViewById(R.id.target_bmi);
-            bmiField.setText(targetBMI);
-
-            Toast.makeText(this, "Your target weight is: " + targetWeight + " and your target BMI is " + targetBMI, Toast.LENGTH_LONG).show();
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w("not ok", "Failed to get days.", error.toException());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
-        Button goalsButton;
-        goalsButton = findViewById(R.id.updateGoals);
-        goalsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openActivityUpdateGoals();
+        try {
+            Bundle extras = getIntent().getExtras();
+            if (extras != null) {
+
+                String targetWeight = extras.getString("weightTarget");
+                TextView weightField = findViewById(R.id.target_weight);
+                weightField.setText(targetWeight);
+
+                String targetBMI = extras.getString("bmiTarget");
+                TextView bmiField = findViewById(R.id.target_bmi);
+                bmiField.setText(targetBMI);
+
+                Toast.makeText(this, "Your target weight is: " + targetWeight + " and your target BMI is " + targetBMI, Toast.LENGTH_LONG).show();
             }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            Button goalsButton;
+            goalsButton = findViewById(R.id.updateGoals);
+            goalsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openActivityUpdateGoals();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -156,10 +175,6 @@ public class GoalsActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
