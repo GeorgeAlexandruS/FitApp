@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">FitTrackApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_dashboard">Dashboard</string>
+    <string name="menu_goals">Goals</string>
+    <string name="menu_bodyprogress">Body Progress</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_goals">Goals</string>
+    <string name="title_body_progress">Body Progress</string>
+
+    <string name="subtitle_dashboard">dashboard</string>
+    <string name="subtitle_goals">set your goals</string>
+    <string name="subtitle_body_progress">update your body progress</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="font_avenir_book">Font avenir book</string>
+    <string name="birthday">birthday</string>
+    <string name="deadline">deadline</string>
+
+    <string name="body_progress_title" value="Your body progress"></string>
+    <string name="chooser">Chooser</string>
+    <string name="currentWeight">Current Weight</string>
+    <string name="currentBMI">Current BMI</string>
+
+
+</resources>

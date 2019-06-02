@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "634910786375",
+    "firebase_url": "https://fittrackapp.firebaseio.com",
+    "project_id": "fittrackapp",
+    "storage_bucket": "fittrackapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634910786375:android:1f36cf2c60193509",
+        "android_client_info": {
+          "package_name": "com.example.fittrackapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634910786375-pqm58d395htscj2i7ht9t3j3a45q1cop.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fittrackapp",
+            "certificate_hash": "c77825bac696ac564764647add647b7e218e152e"
+          }
+        },
+        {
+          "client_id": "634910786375-fp1c19oqcoug5ap7lce9tcm9k6qg9684.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcIN89eiBttXjGhlnmTDPFi4BzPG_1cbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634910786375-fp1c19oqcoug5ap7lce9tcm9k6qg9684.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
