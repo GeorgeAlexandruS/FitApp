@@ -2,6 +2,7 @@ package com.example.fittrackapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,6 +16,12 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class GoalsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,6 +41,44 @@ public class GoalsActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        FirebaseDatabase databaseFit = FirebaseDatabase.getInstance();
+
+        DatabaseReference bmiTargetRef = databaseFit.getReference("BMI target");
+        bmiTargetRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                TextView bmiField = findViewById(R.id.target_bmi);
+                bmiField.setText(value);
+                Log.d("ok", "Target BMI is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("not ok", "Failed to read current BMI.", error.toException());
+            }
+        });
+
+        DatabaseReference weightTargetRef = databaseFit.getReference("Weight target");
+        weightTargetRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                TextView weightTargetField = findViewById(R.id.target_weight);
+                weightTargetField.setText(value);
+                Log.d("ok", "Target weight is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("not ok", "Failed to target BMIe.", error.toException());
+            }
+        });
+
+
 
 
         Bundle extras = getIntent().getExtras();

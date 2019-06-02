@@ -45,15 +45,15 @@ public class ProgressActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // Read from the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase databaseFit = FirebaseDatabase.getInstance();
 
-        DatabaseReference weightCurrentRef = database.getReference("Weight current");
+        DatabaseReference weightCurrentRef = databaseFit.getReference("Weight current");
         weightCurrentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
+                TextView weightField = findViewById(R.id.weight);
+                weightField.setText(value);
                 Log.d("ok", "Current weight is: " + value);
             }
 
@@ -64,13 +64,13 @@ public class ProgressActivity extends AppCompatActivity
             }
         });
 
-        DatabaseReference bmiCurrentRef = database.getReference("BMI current");
+        DatabaseReference bmiCurrentRef = databaseFit.getReference("BMI current");
         bmiCurrentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
+                TextView bmiField = findViewById(R.id.bmi);
+                bmiField.setText(value);
                 Log.d("ok", "Current BMI is: " + value);
             }
 
@@ -81,13 +81,13 @@ public class ProgressActivity extends AppCompatActivity
             }
         });
 
-        DatabaseReference weightTargetRef = database.getReference("Weight target");
+        DatabaseReference weightTargetRef = databaseFit.getReference("Weight target");
         weightTargetRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
+                TextView weightTargetField = findViewById(R.id.target_weight);
+                weightTargetField.setText(value);
                 Log.d("ok", "Target weight is: " + value);
             }
 
@@ -98,13 +98,13 @@ public class ProgressActivity extends AppCompatActivity
             }
         });
 
-        DatabaseReference bmiTargetRef = database.getReference("BMI target");
+        DatabaseReference bmiTargetRef = databaseFit.getReference("BMI target");
         bmiTargetRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
+                TextView bmiTargetField = findViewById(R.id.target_bmi);
+                bmiTargetField.setText(value);
                 Log.d("ok", "Target BMI is: " + value);
             }
 
@@ -119,9 +119,10 @@ public class ProgressActivity extends AppCompatActivity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
-            String currentWeight = extras.getString("weightUpdate");
-            TextView weightField = findViewById(R.id.weight);
-            weightField.setText(currentWeight);
+
+//            String currentWeight = extras.getString("weightUpdate");
+//            TextView weightField = findViewById(R.id.weight);
+//            weightField.setText(currentWeight);
 
             String targetWeight = extras.getString("weightCurrent");
             TextView weightCurrentField = findViewById(R.id.target_weight);
@@ -131,22 +132,22 @@ public class ProgressActivity extends AppCompatActivity
             TextView bmiField = findViewById(R.id.bmi);
             bmiField.setText(currentBMI);
 
-           // String targetBMI = extras.getString("bmiCurrent");
+            String targetBMI = extras.getString("bmiCurrent");
             TextView bmiCurrentField = findViewById(R.id.target_bmi);
-            bmiCurrentField.setText(bmiTargetRef.getKey());
-            //bmiCurrentField.setText(targetBMI);
+            bmiCurrentField.setText(targetBMI);
 
 
 
-            ProgressBar progressBarWeight = findViewById(R.id.weightProgress);
-            progressBarWeight.setProgress(Integer.parseInt(currentWeight));
-            progressBarWeight.setMax(Integer.parseInt(currentWeight));
+//            ProgressBar progressBarWeight = findViewById(R.id.weightProgress);
+//            progressBarWeight.setProgress(Integer.parseInt(currentWeight));
+//            progressBarWeight.setMax(Integer.parseInt(currentWeight));
+//
+//            ProgressBar progressBarBMI = findViewById(R.id.bmiProgress);
+//            progressBarBMI.setProgress(Integer.parseInt(currentBMI));
+//            progressBarBMI.setMax(Integer.parseInt(currentBMI));
 
-            ProgressBar progressBarBMI = findViewById(R.id.bmiProgress);
-            progressBarBMI.setProgress(Integer.parseInt(currentBMI));
-            progressBarBMI.setMax(Integer.parseInt(currentBMI));
+            Toast.makeText(this, "Your weight is: " + weightCurrentRef + "and your BMI is " + currentBMI, Toast.LENGTH_LONG).show();
 
-            Toast.makeText(this, "Your weight is: " + currentWeight + "and your BMI is " + currentBMI, Toast.LENGTH_LONG).show();
         }
 
 
