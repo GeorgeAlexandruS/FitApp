@@ -33,7 +33,6 @@ public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -60,8 +59,7 @@ public class DashboardActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // Read from the database
-
-
+        //get calories intake
         FirebaseDatabase databaseFit = FirebaseDatabase.getInstance();
 
         try {
@@ -85,6 +83,7 @@ public class DashboardActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
+        //get calories consumed
         try {
             DatabaseReference fitnessCurrentRef = databaseFit.getReference("Fitness current");
             fitnessCurrentRef.addValueEventListener(new ValueEventListener() {
@@ -106,7 +105,7 @@ public class DashboardActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-
+        //set button to open the update page
         try {
             Button updateDashboardButton;
             updateDashboardButton = findViewById(R.id.addFoodButton);
@@ -122,7 +121,7 @@ public class DashboardActivity extends AppCompatActivity
 
     }
 
-
+    //intent for next activity
     protected void openActivityUpdateDashboard() {
         Intent intent = new Intent(this, UpdateDashboardActivity.class);
         startActivity(intent);
@@ -156,7 +155,7 @@ public class DashboardActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    //drawer-menu navigation - select menu items
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
